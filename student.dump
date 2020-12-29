@@ -1,0 +1,391 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 11.7 (Ubuntu 11.7-1.pgdg18.04+1)
+-- Dumped by pg_dump version 11.7 (Ubuntu 11.7-1.pgdg18.04+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.ar_internal_metadata OWNER TO postgres;
+
+--
+-- Name: results; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.results (
+    id bigint NOT NULL,
+    mark integer,
+    student_detail_id bigint NOT NULL,
+    sem_id character varying,
+    sub_id character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.results OWNER TO postgres;
+
+--
+-- Name: results_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.results_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.results_id_seq OWNER TO postgres;
+
+--
+-- Name: results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.results_id_seq OWNED BY public.results.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.schema_migrations (
+    version character varying NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO postgres;
+
+--
+-- Name: semesters; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.semesters (
+    id bigint NOT NULL,
+    name character varying,
+    sem_id integer,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.semesters OWNER TO postgres;
+
+--
+-- Name: semesters_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.semesters_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.semesters_id_seq OWNER TO postgres;
+
+--
+-- Name: semesters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.semesters_id_seq OWNED BY public.semesters.id;
+
+
+--
+-- Name: student_details; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.student_details (
+    id bigint NOT NULL,
+    name character varying,
+    gender character varying,
+    address character varying,
+    usn character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.student_details OWNER TO postgres;
+
+--
+-- Name: student_details_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.student_details_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.student_details_id_seq OWNER TO postgres;
+
+--
+-- Name: student_details_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.student_details_id_seq OWNED BY public.student_details.id;
+
+
+--
+-- Name: subjects; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.subjects (
+    id bigint NOT NULL,
+    name character varying,
+    subject_code character varying,
+    sem_id integer,
+    semester_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.subjects OWNER TO postgres;
+
+--
+-- Name: subjects_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.subjects_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.subjects_id_seq OWNER TO postgres;
+
+--
+-- Name: subjects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.subjects_id_seq OWNED BY public.subjects.id;
+
+
+--
+-- Name: results id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.results ALTER COLUMN id SET DEFAULT nextval('public.results_id_seq'::regclass);
+
+
+--
+-- Name: semesters id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.semesters ALTER COLUMN id SET DEFAULT nextval('public.semesters_id_seq'::regclass);
+
+
+--
+-- Name: student_details id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.student_details ALTER COLUMN id SET DEFAULT nextval('public.student_details_id_seq'::regclass);
+
+
+--
+-- Name: subjects id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.subjects ALTER COLUMN id SET DEFAULT nextval('public.subjects_id_seq'::regclass);
+
+
+--
+-- Data for Name: ar_internal_metadata; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ar_internal_metadata (key, value, created_at, updated_at) FROM stdin;
+environment	development	2020-12-28 15:16:08.758884	2020-12-28 15:16:08.758884
+\.
+
+
+--
+-- Data for Name: results; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.results (id, mark, student_detail_id, sem_id, sub_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.schema_migrations (version) FROM stdin;
+20201228145653
+20201228151429
+20201228152701
+20201228153047
+\.
+
+
+--
+-- Data for Name: semesters; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.semesters (id, name, sem_id, created_at, updated_at) FROM stdin;
+1	\N	\N	2020-12-28 16:29:47.88234	2020-12-28 16:29:47.88234
+2	first	1	2020-12-28 16:40:53.539708	2020-12-28 16:40:53.539708
+\.
+
+
+--
+-- Data for Name: student_details; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.student_details (id, name, gender, address, usn, created_at, updated_at) FROM stdin;
+1	shreyas	M	\N	1SJ1IS094	2020-12-28 15:40:34.125171	2020-12-28 15:40:34.125171
+\.
+
+
+--
+-- Data for Name: subjects; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.subjects (id, name, subject_code, sem_id, semester_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: results_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.results_id_seq', 1, false);
+
+
+--
+-- Name: semesters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.semesters_id_seq', 34, true);
+
+
+--
+-- Name: student_details_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.student_details_id_seq', 1, true);
+
+
+--
+-- Name: subjects_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.subjects_id_seq', 1, false);
+
+
+--
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: results results_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.results
+    ADD CONSTRAINT results_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: semesters semesters_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.semesters
+    ADD CONSTRAINT semesters_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: student_details student_details_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.student_details
+    ADD CONSTRAINT student_details_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: subjects subjects_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.subjects
+    ADD CONSTRAINT subjects_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_results_on_student_detail_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX index_results_on_student_detail_id ON public.results USING btree (student_detail_id);
+
+
+--
+-- Name: index_subjects_on_semester_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX index_subjects_on_semester_id ON public.subjects USING btree (semester_id);
+
+
+--
+-- Name: results fk_rails_06b5866df2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.results
+    ADD CONSTRAINT fk_rails_06b5866df2 FOREIGN KEY (student_detail_id) REFERENCES public.student_details(id);
+
+
+--
+-- Name: subjects fk_rails_5428d102ef; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.subjects
+    ADD CONSTRAINT fk_rails_5428d102ef FOREIGN KEY (semester_id) REFERENCES public.semesters(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
