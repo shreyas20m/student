@@ -9,7 +9,7 @@ class SemestersController < ApplicationController
 	end
 
 	def index
-		@semesters = Semester.all
+		@semesters = Semester.all.order(sem_id: :asc)
  
 	  respond_to do |format|
 	    format.html  # index.html.erb
@@ -31,6 +31,40 @@ class SemestersController < ApplicationController
 		end
 	end
 
+	def show
+		@semester = Semester.find(params[:id])
+		respond_to do |format|
+			format.html #show.html.erb
+			format.json {render json: @semester}
+		end
+	end
+
+	def edit
+		@semester = Semester.find(params[:id])
+	end
+
+	def update
+	  @semester = Semester.find(params[:id])
+	  respond_to do |format|
+	    if @semester.update_attributes(semester_params)
+	      format.html  { redirect_to(@semester,:notice => 'Semester was successfully updated.') }
+	      format.json  { head :no_content }
+	    else
+	      format.html  { render :action => "edit" }
+	      format.json  { render :json => @semester.errors,:status => :unprocessable_entity }
+	    end
+	  end
+	end
+
+	def destroy
+	  @semester = Semester.find(params[:id])
+	  @semester.destroy
+	 
+	  respond_to do |format|
+	    format.html { redirect_to semesters_url }
+	    format.json { head :no_content }
+	  end
+	end
 	private
 
 	def semester_params
