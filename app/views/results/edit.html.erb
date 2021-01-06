@@ -7,12 +7,16 @@
 </div><br>
 <div class="row" >
 	<%= form.label :sub_id, "Subject : " %>
-  <%= form.text_field :sub_id, params[:sub_id], value: @result.sub_id %>
+  <%= form.text_field :sub_id, value: @result.sub_id %>
 </div><br>
 
 <div class="row">
 	<%= form.label :mark, "Mark : " %>
-  <%= form.number_field :mark, params[:mark], value: @result.mark %>
+  <%= form.number_field :mark, value: @result.mark %>
 </div><br>
 <%= form.submit "Update Result" %>
 <%end%>
+
+<!-- 
+ params[:sub_id],
+ , params[:mark], -->

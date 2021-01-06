@@ -20,7 +20,9 @@ class ResultsController < ApplicationController
 			@result = @student_detail.results.create(result_params)
 			redirect_to student_detail_path(@student_detail)
 		else
-			render json: {error: "invalid subject code"}, status: :unprocessable_entity	
+			# render json: {error: "invalid subject code"}, status: :unprocessable_entity	
+			flash[:message] = 'Invalid Subject Code'
+			redirect_to student_detail_path(@student_detail)
 		end
 	end
 
@@ -31,11 +33,22 @@ class ResultsController < ApplicationController
 	end
 
 	def destroy
-
+		@result = @student_detail.results.find(params[:id])
+		@result.destroy
+		redirect_to student_detail_path(@student_detail)
 	end
 
 	def update
-
+		@result = @student_detail.results.find(params[:id])
+		subj_id, status = validate_subject_code params[:sub_id]
+		if status
+			@result.update_attributes(result_params)
+			redirect_to student_detail_path(@student_detail)
+		else
+			# render json: {error: "invalid subject code"}, status: :unprocessable_entity	
+			flash[:message] = 'Invalid Subject Code'
+			redirect_to student_detail_path(@student_detail)
+		end
 	end
 
 	def validate_subject_code sub_id

@@ -1,5 +1,8 @@
-<p id="notice"><%= notice %></p>
- 
+<!-- <p id="notice"><%= notice %></p> -->
+<% if flash[:message] %>
+ <div style="color:Tomato;"><strong><%= flash[:message] %></strong></div>
+<% end %>
+
 <p>
   <b>USN :</b>
   <%= @student_detail.usn %>
