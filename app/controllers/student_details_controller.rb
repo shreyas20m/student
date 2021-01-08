@@ -71,8 +71,42 @@ class StudentDetailsController < ApplicationController
 	  end
 	end
 
+	def redirect
+		logger.debug "\nshreyas here\n"
+		url = request.url.split('/')[0..2].join('/')
+		query_string = ''
+		params.each do |key,val|
+      query_string += "&" unless query_string.empty?
+      query_string += "#{key}=#{val}"
+    end
+    url = url+'/student/view_result?'+query_string
+		redirect_to url
+	end
+
 	def view_result
-		render json: {}, status: :ok
+		@usn = params[:usn]
+		@student_detail = StudentDetail.find_by(usn: params[:usn].upcase)
+		@sem = Semester.find(params[:sem_id])
+		@res = []
+		if @student_detail.present? && @sem.present?
+			@sem_id = @sem.sem_id
+			@results = @student_detail.results.where(sem_id: params[:sem_id])
+			@results.each do |res|
+				obj = {}
+				obj[:sub_code] = res.sub_id
+				obj[:sub_name] = Subject.find_by(subject_code: res.sub_id).name rescue ""
+				obj[:mark] = res.mark
+				@res << obj
+			end
+			respond_to do |format|
+				format.html 
+			end
+
+		else
+			flash[:message] = 'Invalid usn'
+		redirect_to '/'
+		end
+
 	end
 	private
 

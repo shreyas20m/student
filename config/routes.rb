@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   resources :student_details do
   	resources :results
   end
-  post '/student_details/view_result' => "student_details#view_result"
+  post 'student/redirect' => "student_details#redirect"
+  get 'student/view_result' => "student_details#view_result"
 end
