@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :gender %><br />
-    <%= f.text_field :gender %>
+    <%= f.select :gender, [["select Gender", ""], ["Male", "male"],["Female","female"]] %>
   </div>
 	<div class="field">
     <%= f.label :address %><br />
